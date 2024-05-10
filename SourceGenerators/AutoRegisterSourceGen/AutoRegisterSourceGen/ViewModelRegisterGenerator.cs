@@ -163,7 +163,8 @@ public class ViewModelRegisterGenerator : IIncrementalGenerator
 
         return $$"""
                using System;
-               namespace {{Constants.Namespace}};
+               namespace {{Constants.Namespace}}
+               {
                
                [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
                public class {{Constants.AutoRegisterViewModelsAttribute}}: Attribute
@@ -176,6 +177,7 @@ public class ViewModelRegisterGenerator : IIncrementalGenerator
                    }
                
                } 
+               }
                """;
     }
 }

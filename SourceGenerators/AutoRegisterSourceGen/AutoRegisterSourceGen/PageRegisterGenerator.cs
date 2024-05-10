@@ -167,7 +167,8 @@ public class PageRegisterGenerator : IIncrementalGenerator
 
         return $$"""
                using System;
-               namespace {{Constants.Namespace}};
+               namespace {{Constants.Namespace}}
+               {
                
                [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
                public class {{Constants.PageRegisterGeneratorAttribute}}: Attribute
@@ -180,6 +181,7 @@ public class PageRegisterGenerator : IIncrementalGenerator
                    }
                
                } 
+               }
                """;
     }
 
