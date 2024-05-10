@@ -141,7 +141,6 @@
       <Version>2.0.1</Version>
     </PackageReference>
     <ProjectReference Include="..\SourceGenerators\AutoRegisterSourceGen\AutoRegisterSourceGen\AutoRegisterSourceGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
-
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-us\Resources.resw" />
@@ -150,7 +149,15 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Contracts\Services\IActivationService.cs" />
+    <Compile Include="Contracts\Services\ILocalSettingsService.cs" />
+    <Compile Include="Contracts\Services\INavigationService.cs" />
+    <Compile Include="Contracts\Services\INavigationViewService.cs" />
+    <Compile Include="Contracts\Services\IPageService.cs" />
+    <Compile Include="Contracts\Services\IThemeSelectorService.cs" />
+    <Compile Include="Contracts\ViewModels\INavigationAware.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\FrameExtensions.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Services\ActivationService.cs" />
@@ -177,6 +184,9 @@
     </Compile>
     <Compile Include="Views\ChildMenuPage.xaml.cs">
       <DependentUpon>ChildMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\MenuButton.xaml.cs">
+      <DependentUpon>MenuButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateABoardPage.xaml.cs">
       <DependentUpon>CreateABoardPage.xaml</DependentUpon>
@@ -207,6 +217,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -238,6 +252,10 @@
     <Page Include="Views\ChildMenuPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateABoardPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -302,6 +320,9 @@
       <Project>{785DF29E-54BF-40DF-B41F-A6B7DBC6AF58}</Project>
       <Name>LetsTalk.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contracts\Pages\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

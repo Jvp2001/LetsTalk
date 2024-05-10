@@ -47,8 +47,10 @@ namespace LetsTalk
 
             serviceProvider = new ServiceCollection()
                 .AddSingleton(_ => CreateActivationService())
-                .AddSingleton<IFileService, FileService>();
-           
+                .AddSingleton<IFileService, FileService>()
+                .AddTransientViewModels()
+                .AddTransientPages();
+
 
         }
 
