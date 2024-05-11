@@ -16,10 +16,11 @@ namespace LetsTalk
     ]
     public sealed partial class App : Application
     {
-        private ActivationService ActivationService
-        {
-            get { return GetService<ActivationService>(); }
-        }
+
+
+        private Lazy<ActivationService> activationService;
+
+        public ActivationService ActivationService => activationService.Value;
 
         public IHost Host { get; private set; }
 
@@ -45,12 +46,7 @@ namespace LetsTalk
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
 
-            serviceProvider = new ServiceCollection()
-                .AddSingleton(_ => CreateActivationService())
-                .AddSingleton<IFileService, FileService>()
-                .AddTransientViewModels()
-                .AddTransientPages();
-
+            activationService = new Lazy<ActivationService>(() => CreateActivationService());
 
         }
 
