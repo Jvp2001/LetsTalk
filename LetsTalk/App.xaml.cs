@@ -22,21 +22,6 @@ namespace LetsTalk
 
         public ActivationService ActivationService => activationService.Value;
 
-        public IHost Host { get; private set; }
-
-        private IServiceCollection serviceProvider;
-
-        public static T GetService<T>() where T : class
-        {
-            T service = (App.Current as App).Host.Services.GetService(typeof(T)) as T;
-            if (service is null)
-            {
-                throw new ArgumentException(
-                    $"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs");
-            }
-
-            return service;
-        }
 
 
         public App()
@@ -50,7 +35,7 @@ namespace LetsTalk
 
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (!args.PrelaunchActivated)
             {
@@ -58,7 +43,7 @@ namespace LetsTalk
             }
         }
 
-        protected override async void OnActivated(IActivatedEventArgs args)
+        protected async override void OnActivated(IActivatedEventArgs args)
         {
             await ActivationService.ActivateAsync(args);
         }

@@ -8,15 +8,17 @@ public static class Utils
 {
     public static IEnumerable<INamedTypeSymbol> GetAllClasses(INamespaceSymbol namespaceSymbol)
     {
-        foreach (INamespaceOrTypeSymbol member in namespaceSymbol.GetMembers())
+        foreach (var member in namespaceSymbol.GetMembers())
         {
             if (member is INamespaceSymbol namespaceSymbol1)
             {
-                foreach (INamedTypeSymbol allClass in GetAllClasses(namespaceSymbol1))
+                foreach (var allClass in GetAllClasses(namespaceSymbol1))
                     yield return allClass;
             }
             else if (member is INamedTypeSymbol allClass1)
+            {
                 yield return allClass1;
+            }
         }
     }
 
@@ -24,7 +26,7 @@ public static class Utils
     {
         foreach (var @class in classes)
         {
-            if (@class.BaseType .Equals(parentType, SymbolEqualityComparer.Default) == true)
+            if (@class.BaseType.Equals(parentType, SymbolEqualityComparer.Default) == true)
                 yield return @class;
         }
     }

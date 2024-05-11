@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using LetsTalk.Views;
-
 using Microsoft.Toolkit.Uwp.Helpers;
-
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 

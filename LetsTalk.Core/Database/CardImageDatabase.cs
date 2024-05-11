@@ -85,13 +85,14 @@ public class CardModelDatabase(IFileService fileService, IAssetsManagerService a
 {
 
     public const string DatabaseName = "CardImages.json";
+
     public string DatabasePath => assetsManagerService.GetAbsolutePath("Databases".AsSpan());
 
-    
+
     public async void InsertAllUniqueCards(IEnumerable<CardsTableRowModel> cards, CancellationToken token)
 
     {
-        CardsTableRowModel[] currentCards =
+        var currentCards =
             await fileService.ReadAsync<CardsTableRowModel[]>(DatabasePath, DatabaseName);
         if (currentCards is null)
         {

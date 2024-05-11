@@ -13,12 +13,13 @@ namespace LetsTalk.Contracts.Services
             get;
         }
 
-        Frame  Frame
+        Frame Frame
         {
-            get; set;
+            get;
+            set;
         }
 
-        bool NavigateTo(string pageKey, object  parameter = null, bool clearNavigation = false);
+        bool NavigateTo(string pageKey, object parameter = null, bool clearNavigation = false);
 
         bool GoBack();
     }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using LetsTalk.Activation;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Notifications;
 
@@ -22,7 +20,7 @@ namespace LetsTalk.Services
             }
         }
 
-        protected override async Task HandleInternalAsync(ToastNotificationActivatedEventArgs args)
+        protected async override Task HandleInternalAsync(ToastNotificationActivatedEventArgs args)
         {
             //// TODO: Handle activation from toast notification
             //// More details at https://docs.microsoft.com/windows/uwp/design/shell/tiles-and-notifications/send-local-toast

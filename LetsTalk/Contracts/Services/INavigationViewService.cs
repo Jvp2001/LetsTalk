@@ -6,12 +6,12 @@ namespace LetsTalk.Contracts.Services
 {
     public interface INavigationViewService
     {
-        IList<object>  MenuItems
+        IList<object> MenuItems
         {
             get;
         }
 
-        object  SettingsItem
+        object SettingsItem
         {
             get;
         }
@@ -20,6 +20,6 @@ namespace LetsTalk.Contracts.Services
 
         void UnregisterEvents();
 
-        NavigationViewItem  GetSelectedItem(Type pageType);
+        NavigationViewItem GetSelectedItem(Type pageType);
     }
 }

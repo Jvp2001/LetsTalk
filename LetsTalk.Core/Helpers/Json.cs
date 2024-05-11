@@ -1,6 +1,4 @@
-﻿
-
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -23,11 +21,11 @@ public static class Json
         return JsonSerializer.Serialize(value, options);
     }
 
-   
+
 
     public static async Task<T> ToObjectAsync<T>(string value, CancellationToken token = default)
     {
-        
+
         using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(value));
 
         var options = CreateConvertor<T>();
@@ -39,13 +37,13 @@ public static class Json
     {
         var options = new JsonSerializerOptions();
         options.Converters.Add(new ArrayOrObjectJsonConvertor<T>());
-         return options;
+        return options;
     }
 
     public static async Task<string> StringifyAsync(object value)
     {
         using var memoryStream = new MemoryStream();
-        var options = CreateConvertor<string>();  
+        var options = CreateConvertor<string>();
         await JsonSerializer.SerializeAsync(memoryStream, value, options);
         return Encoding.UTF8.GetString(memoryStream.ToArray());
     }

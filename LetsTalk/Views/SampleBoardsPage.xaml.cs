@@ -1,7 +1,5 @@
 ﻿using System;
-
 using LetsTalk.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 
 namespace LetsTalk.Views

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
-
 using Windows.UI.Notifications;
 
 namespace LetsTalk.Services
@@ -27,7 +26,7 @@ namespace LetsTalk.Services
 
                             new AdaptiveText()
                             {
-                                 Text = @"Click OK to see how activation from a toast notification can be handled in the ToastNotificationService."
+                                Text = @"Click OK to see how activation from a toast notification can be handled in the ToastNotificationService."
                             }
                         }
                     }

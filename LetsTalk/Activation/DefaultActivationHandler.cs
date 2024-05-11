@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using LetsTalk.Core.Helpers;
 using LetsTalk.Services;
-
 using Windows.ApplicationModel.Activation;
 
 namespace LetsTalk.Activation
@@ -17,7 +15,7 @@ namespace LetsTalk.Activation
             _navElement = navElement;
         }
 
-        protected override async Task HandleInternalAsync(IActivatedEventArgs args)
+        protected async override Task HandleInternalAsync(IActivatedEventArgs args)
         {
             // When the navigation stack isn't restored, navigate to the first page and configure
             // the new page by passing required information in the navigation parameter

@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LetsTalk.Core.Helpers;
-public static class Extensions 
+
+public static class Extensions
 {
 
     public static void AddAll<T>(this ObservableCollection<T> source, IEnumerable<T> other)
@@ -16,7 +17,7 @@ public static class Extensions
             source.Add(item);
         }
     }
-    public static void AddAll<T>(this ObservableCollection<T> source,params T[] other)
+    public static void AddAll<T>(this ObservableCollection<T> source, params T[] other)
     {
         foreach (var item in other)
         {

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using LetsTalk.Helpers;
 using LetsTalk.Services;
-
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 
@@ -20,18 +17,18 @@ namespace LetsTalk.ViewModels
 
         public ElementTheme ElementTheme
         {
-            get { return _elementTheme; }
+            get => _elementTheme;
 
-            set { SetProperty(ref _elementTheme, value); }
+            set => SetProperty(ref _elementTheme, value);
         }
 
         private string _versionDescription;
 
         public string VersionDescription
         {
-            get { return _versionDescription; }
+            get => _versionDescription;
 
-            set { SetProperty(ref _versionDescription, value); }
+            set => SetProperty(ref _versionDescription, value);
         }
 
         private ICommand _switchThemeCommand;

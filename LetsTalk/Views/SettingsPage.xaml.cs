@@ -1,7 +1,5 @@
 ﻿using System;
-
 using LetsTalk.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -17,7 +15,7 @@ namespace LetsTalk.Views
             InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.InitializeAsync();
         }

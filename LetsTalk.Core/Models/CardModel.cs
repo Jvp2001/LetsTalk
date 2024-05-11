@@ -1,13 +1,9 @@
-
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
 namespace LetsTalk.Core.Models;
-
-
-
 
 public class CardsTableRowModel
 {
@@ -17,12 +13,12 @@ public class CardsTableRowModel
 
     // [Column("Name")]
     [JsonPropertyName("title")]
-    public string Title { get;  }
+    public string Title { get; }
     // [Column("Image")]
     [JsonPropertyName("image")]
-    public string  Image { get; }
+    public string Image { get; }
 
-   
+
 
     public CardsTableRowModel(string image)
     {
@@ -43,5 +39,3 @@ public class CardsTableRowModel
 
 
 }
-
-

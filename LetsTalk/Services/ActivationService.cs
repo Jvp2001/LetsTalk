@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using LetsTalk.Activation;
 using LetsTalk.Core.Helpers;
 using LetsTalk.Services;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,7 +13,7 @@ namespace LetsTalk.Services
 {
     // For more information on understanding and extending activation flow see
     // https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/activation.md
-    internal class ActivationService
+    public class ActivationService
     {
         private readonly App _app;
         private readonly Type _defaultNavItem;
@@ -70,7 +68,7 @@ namespace LetsTalk.Services
         private async Task HandleActivationAsync(object activationArgs)
         {
             var activationHandler = GetActivationHandlers()
-                                                .FirstOrDefault(h => h.CanHandle(activationArgs));
+                .FirstOrDefault(h => h.CanHandle(activationArgs));
 
             if (activationHandler != null)
             {

@@ -14,14 +14,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
 using LetsTalk.Services;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace LetsTalk.Views.Controls
 {
-    
+
     public sealed partial class MenuButton : UserControl
     {
 
@@ -54,31 +53,36 @@ namespace LetsTalk.Views.Controls
 
         public MenuButton()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void MenuButton_OnPointerReleased(object sender, PointerRoutedEventArgs e)
         {
+
+        }
+        private void MenuButton_OnClicked(object sender, RoutedEventArgs e)
+        {
+
 
             if (GoTo is null || GoTo == string.Empty)
             {
                 return;
             }
 
-            if (GoTo.Contains(".") || GoTo.Contains(" ") || GoTo.Contains("ViewModel"))
+            if (GoTo.Contains(".") || GoTo.Contains(" ") || GoTo.Contains("Page"))
             {
                 return;
             }
 
-            var goToType = Type.GetType($"LetsTalk.ViewModels.{GoTo}ViewModel");
-            if(goToType is null )
+            var goToType = Type.GetType($"LetsTalk.Views.{GoTo}Page");
+            if (goToType is null)
             {
                 return;
             }
 
-            NavigationService.Navigate( goToType, GoToPayload, null); 
+            NavigationService.Navigate(goToType, GoToPayload, null);
 
-        
+
         }
     }
 }

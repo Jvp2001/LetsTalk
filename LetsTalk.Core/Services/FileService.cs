@@ -60,7 +60,7 @@ public class FileService : IFileService
         }
 
         return Json.ToObject<T>(json);
-         
+
 
     }
 
