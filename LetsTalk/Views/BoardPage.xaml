@@ -1,0 +1,120 @@
+﻿
+<Page x:Class="LetsTalk.Views.BoardPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:views="using:LetsTalk.Views"
+      xmlns:models="using:LetsTalk.Models" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      xmlns:behaviors="using:LetsTalk.Behaviors"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:letsTalk="using:LetsTalk"
+      xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+      xmlns:services="using:LetsTalk.Services"
+      Style="{StaticResource PageStyle}" mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <ItemsPanelTemplate x:Key="CardBoard_ItemsPanelTemplate">
+            <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" MaximumRowsOrColumns="3"/>
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="CardBoard_ItemTemplate">
+            <Grid Width="200" Height="200" Margin="5">
+                <Image x:Name="CardImage" Stretch="Uniform" Opacity="0" Width="200" Height="200" />
+            </Grid>
+
+        </DataTemplate>
+
+
+
+        <Style x:Key="BoardNameTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="45" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="{StaticResource MediumTopMargin}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Text" Value="{x:Bind ViewModel.BoardName, Mode=OneWay}" />
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <MediaElement Name="MediaElement" AutoPlay="False" MediaOpened="{x:Bind ViewModel.MediaElement_OnMediaOpened}"
+                      MediaEnded="{x:Bind  ViewModel.MediaElement_OnMediaEnded}" />
+
+        <muxc:MenuBar Name="MenuBar" Grid.Row="1">
+            <interactivity:Interaction.Behaviors>
+                <core:DataTriggerBehavior Binding="{x:Bind letsTalk:App.Current.User}" ComparisonCondition="Equal"
+                                          Value="Child">
+                    <core:ChangePropertyAction TargetObject="{Binding ElementName=MenuBar}" PropertyName="Visibility"
+                                               Value="Hidden" />
+                </core:DataTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <!-- File menu with two sub items Save, Save As with shortcuts Ctrl s and Ctrl shift s-->
+            <muxc:MenuBarItem Title="File">
+                <MenuFlyoutItem Text="Save" Click="{x:Bind ViewModel.Save}">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Save As" Click="{x:Bind ViewModel.SaveAs}">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control, Shift" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="Rename" Click="{x:Bind ViewModel.Rename}">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F2" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="Export" Click="Export">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="E" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+            </muxc:MenuBarItem>
+
+
+        </muxc:MenuBar>
+
+        <TextBlock Grid.Row="1" Style="{StaticResource BoardNameTitle}" />
+
+        <RelativePanel Grid.Row="2">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
+                Place your content here.
+            -->
+
+
+
+
+            <GridView
+                gaze:GazeInput.Interaction="Enabled"
+                gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+                gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+                Name="CardBoard"
+                ContainerContentChanging="CardBoard_ContainerContentChanging"
+                ItemClick="{x:Bind ViewModel.CardBoard_ItemClicked}"
+                IsItemClickEnabled="{x:Bind ViewModel.IsItemClickedEnabled}"
+                ItemsSource="{x:Bind ViewModel.Cards, Mode=OneWay}"
+                RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
+                ItemsPanel="{StaticResource CardBoard_ItemsPanelTemplate}"
+                ItemTemplate="{StaticResource CardBoard_ItemTemplate}">
+
+            </GridView>
+        </RelativePanel>
+    </Grid>
+</Page>

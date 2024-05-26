@@ -15,17 +15,17 @@ namespace LetsTalk.Services
     // https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/activation.md
     public class ActivationService
     {
-        private readonly App _app;
-        private readonly Type _defaultNavItem;
-        private Lazy<UIElement> _shell;
+        private readonly App app;
+        private readonly Type defaultNavItem;
+        private readonly Lazy<UIElement> shell;
 
-        private object _lastActivationArgs;
+        private object lastActivationArgs;
 
         public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
         {
-            _app = app;
-            _shell = shell;
-            _defaultNavItem = defaultNavItem;
+            this.app = app;
+            this.shell = shell;
+            this.defaultNavItem = defaultNavItem;
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -41,28 +41,31 @@ namespace LetsTalk.Services
                 if (Window.Current.Content == null)
                 {
                     // Create a Shell or Frame to act as the navigation context
-                    Window.Current.Content = _shell?.Value ?? new Frame();
+                    Window.Current.Content = shell?.Value ?? new Frame();
                 }
+
+                ((FrameworkElement)Window.Current.Content).RequestedTheme = ElementTheme.Dark;
             }
 
             // Depending on activationArgs one of ActivationHandlers or DefaultActivationHandler
             // will navigate to the first page
             await HandleActivationAsync(activationArgs);
-            _lastActivationArgs = activationArgs;
+            lastActivationArgs = activationArgs;
 
             if (IsInteractive(activationArgs))
             {
                 // Ensure the current window is active
                 Window.Current.Activate();
 
-                // Tasks after activation
-                await StartupAsync();
+                
             }
         }
 
         private async Task InitializeAsync()
         {
             await ThemeSelectorService.InitializeAsync().ConfigureAwait(false);
+            await LetsTalkSettingsService.InitialiseAsync().ConfigureAwait(false);
+
         }
 
         private async Task HandleActivationAsync(object activationArgs)
@@ -77,7 +80,7 @@ namespace LetsTalk.Services
 
             if (IsInteractive(activationArgs))
             {
-                var defaultHandler = new DefaultActivationHandler(_defaultNavItem);
+                var defaultHandler = new DefaultActivationHandler(defaultNavItem);
                 if (defaultHandler.CanHandle(activationArgs))
                 {
                     await defaultHandler.HandleAsync(activationArgs);
@@ -85,7 +88,7 @@ namespace LetsTalk.Services
             }
         }
 
-        private async Task StartupAsync()
+        public async Task StartupAsync()
         {
             await ThemeSelectorService.SetRequestedThemeAsync();
             await FirstRunDisplayService.ShowIfAppropriateAsync();

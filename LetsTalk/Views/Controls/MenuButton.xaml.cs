@@ -14,7 +14,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LetsTalk.Models;
 using LetsTalk.Services;
+using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -51,15 +53,17 @@ namespace LetsTalk.Views.Controls
             set => SetValue(textProperty, value);
         }
 
+
+
+        public Interaction InteractionStatus => App.Current.User == UserType.Child ? Interaction.Enabled : Interaction.Disabled;
+
+
         public MenuButton()
         {
             InitializeComponent();
         }
 
-        private void MenuButton_OnPointerReleased(object sender, PointerRoutedEventArgs e)
-        {
 
-        }
         private void MenuButton_OnClicked(object sender, RoutedEventArgs e)
         {
 
@@ -82,6 +86,11 @@ namespace LetsTalk.Views.Controls
 
             NavigationService.Navigate(goToType, GoToPayload, null);
 
+
+        }
+
+        private void UserControl_Loaded()
+        {
 
         }
     }

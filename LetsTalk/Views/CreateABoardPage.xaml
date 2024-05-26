@@ -1,14 +1,111 @@
-﻿<Page x:Class="LetsTalk.Views.CreateABoardPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Style="{StaticResource PageStyle}"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:LetsTalk.Views.Controls"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      x:Class="LetsTalk.Views.CreateABoardPage"
+      xmlns:input="using:Windows.UI.Xaml.Input"
+      xmlns:helpers="using:LetsTalk.Helpers"
+      helpers:FocusManager.FocusedElement="{Binding ElementName=RowTextBox}"
+
       mc:Ignorable="d">
+
+    <Page.Resources>
+        <ItemsPanelTemplate x:Key="CardBoard_ItemsPanelTemplate">
+            <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" MaximumRowsOrColumns="3" />
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="CardBoard_ItemTemplate">
+            <Grid Width="200" Height="200" Margin="5" Background="Blue">
+                <Image Name="CardImage" Stretch="Uniform" Opacity="0" Width="200" Height="200" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Page.Style>
+        <StaticResource ResourceKey="PageStyle" />
+    </Page.Style>
+
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <muxc:MenuBar>
+            <!-- File menu with two sub items Save, Save As with shortcuts Ctrl s and Ctrl shift s-->
+            <muxc:MenuBarItem Title="File">
+                <MenuFlyoutItem Text="Save" Click="{x:Bind ViewModel.Save}">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Save As" Click="{x:Bind ViewModel.SaveAs}">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control, Shift" />
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="Rename" Click="{x:Bind ViewModel.Rename}">
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F2"/>
+                    </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+            </muxc:MenuBarItem>
+
+        </muxc:MenuBar>
+        <Grid Grid.Row="1" Margin="0,20,0,20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="BoardNameTextBlock" Style="{StaticResource PageTitleStyle}" Text="{x:Bind ViewModel.BoardName, Mode=OneWay}"/>
+
+            <Grid Grid.Row="1" RowSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <controls:CreateABoardTextBox Text="Rows" x:Name="RowTextBox"
+                                              CurrentValue="{x:Bind Path=ViewModel.NumberOfRows, Mode=TwoWay}"
+                                              IsValid="{x:Bind Path=ViewModel.TextBoxIsValid, Mode=OneWay}"
+                                              Maximum="{x:Bind ViewModel.MaximumNumberOfRows}"
+                                              TextChanged="{x:Bind Path=ViewModel.CreateABoardTextBox_TextChanged}"
+                                              Minimum="1"
+                                              />
+                <controls:CreateABoardTextBox Text="Columns" Grid.Row="1" x:Name="ColumnsTextBox"
+                                              CurrentValue="{x:Bind Path=ViewModel.NumberOfColumns, Mode=TwoWay}"
+                                              IsValid="{x:Bind Path=ViewModel.TextBoxIsValid, Mode=OneWay}"
+                                              TextChanged="{x:Bind Path=ViewModel.CreateABoardTextBox_TextChanged}"
+                                              Minimum="1"
+                                              Maximum="{x:Bind ViewModel.MaximumNumberOfColumns}"/>
+            </Grid>
+
+            <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center"
+                       FontSize="40" Foreground="Red"
+                       Text="{x:Bind Mode=OneWay, Path=ViewModel.ErrorTextBlockText}" />
+
+
+            <RelativePanel Grid.Row="3" HorizontalAlignment="Center">
+                <GridView ItemsSource="{x:Bind Path=ViewModel.Cards, Mode=OneTime}"
+                          Name="CardBoardGridView"
+                          SelectedIndex="{x:Bind ViewModel.SelectedCardIndex, Mode=TwoWay}"
+                          ItemClick="{x:Bind Path=ViewModel.OnCardClicked}"
+                          IsItemClickEnabled="True"
+                          SelectionMode="Single"
+                          ItemsPanel="{StaticResource CardBoard_ItemsPanelTemplate}"
+                          ItemTemplate="{StaticResource CardBoard_ItemTemplate}"
+                          ContainerContentChanging="CardBoard_ContainerContentChanging" />
+            </RelativePanel>
         </Grid>
+
     </Grid>
 </Page>

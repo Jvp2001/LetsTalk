@@ -5,19 +5,21 @@
         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
         xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/templatestudio"
-        IgnorableNamespaces="uap mp genTemplate">
+        xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+        xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+        IgnorableNamespaces="uap mp genTemplate uap3">
 
     <Identity
-            Name="369e2c54-92bc-46a5-87d6-a75bba686094"
+            Name="LetsTalk"
             Publisher="CN=Mirro"
-            Version="1.0.0.0"/>
+            Version="1.0.0.1"/>
 
     <mp:PhoneIdentity PhoneProductId="369e2c54-92bc-46a5-87d6-a75bba686094"
                       PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
     <Properties>
         <DisplayName>LetsTalk</DisplayName>
-        <PublisherDisplayName>Mirro</PublisherDisplayName>
+        <PublisherDisplayName>Joshua Petersen</PublisherDisplayName>
         <Logo>Assets\StoreLogo.png</Logo>
     </Properties>
 
@@ -40,16 +42,15 @@
                     Description="ms-resource:AppDescription"
                     BackgroundColor="transparent">
                 <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-                <uap:SplashScreen Image="Assets\SplashScreen.png"/>
+				<uap:SplashScreen uap5:Optional="true" Image="Assets\SplashScreen.png"/>
             </uap:VisualElements>
-
-            <Extensions>
-            </Extensions>
         </Application>
     </Applications>
 
     <Capabilities>
         <Capability Name="internetClient"/>
+        <uap:Capability Name="picturesLibrary"/>
+        <uap3:Capability Name="backgroundMediaPlayback"/>
         <DeviceCapability Name="gazeInput"/>
     </Capabilities>
 

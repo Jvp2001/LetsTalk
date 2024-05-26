@@ -1,14 +1,71 @@
 ﻿<Page x:Class="LetsTalk.Views.SampleBoardsPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Style="{StaticResource PageStyle}"
-      mc:Ignorable="d">
+      xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+      gaze:GazeInput.Interaction="Disabled"
+      gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+      gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:services="using:LetsTalk.Services"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:letsTalk="using:LetsTalk"
+      Style="{StaticResource PageStyle}"
+      mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Page.Resources>
+
+        <ItemsPanelTemplate x:Key="CardBoard_ItemsPanelTemplate">
+            <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" />
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="CardBoard_ItemTemplate">
+            <Grid Width="200" Height="200" Margin="5" Background="DarkGray">
+                <TextBlock Name="BoardName" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Foreground="Purple" />
+
+            </Grid>
+
+        </DataTemplate>
+
+
+
+    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
                 Place your content here.
             -->
+
+            <TextBlock Style="{StaticResource PageTitleStyle}" Text="{x:Bind ViewModel.TitleText, Mode=OneWay}"/>
+
+
+            <RelativePanel Grid.Row="1">
+                <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
+                Place your content here.
+            -->
+
+
+
+                <GridView
+                    Name="SampleBoardsGridView"
+                    gaze:GazeInput.Interaction="{x:Bind letsTalk:App.Current.User, Converter={StaticResource UserTypeToGazeInteractionConvertor}}"
+                    gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+                    gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+                    ContainerContentChanging="SampleBoards_ContainerContentChanging" ItemClick="{x:Bind ViewModel.SampleBoards_ItemClicked}"
+                    IsItemClickEnabled="True" ItemsSource="{x:Bind ViewModel.Boards, Mode=TwoWay}"
+                    RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
+                    ItemsPanel="{StaticResource CardBoard_ItemsPanelTemplate}"
+                    ItemTemplate="{StaticResource CardBoard_ItemTemplate}" />
+            </RelativePanel>
+
         </Grid>
     </Grid>
 </Page>

@@ -2,14 +2,19 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:helper="using:LetsTalk.Helpers"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Style="{StaticResource PageStyle}"
-      xmlns:xaml="using:Windows.UI.Xaml" mc:Ignorable="d">
+      xmlns:xaml="using:Windows.UI.Xaml"
+      xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+      xmlns:services="using:LetsTalk.Services"
+      xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+      gaze:GazeInput.Interaction="Disabled"
+      mc:Ignorable="d">
     <Page.Resources>
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>
 
     <Grid Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock x:Uid="Settings_Personalization" Text="Personalisation"  Style="{ThemeResource SubtitleTextBlockStyle}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
 
@@ -24,6 +29,7 @@
                     <RadioButton x:Uid="Settings_Theme_Dark" Command="{x:Bind ViewModel.SwitchThemeCommand}"
                                  IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
                                  FontSize="15" GroupName="AppTheme">
+                        
                         <RadioButton.CommandParameter>
                             <xaml:ElementTheme>Dark</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
@@ -38,7 +44,71 @@
                 </StackPanel>
             </StackPanel>
 
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock Margin="0,40,0,20" x:Uid="Settings_EyeTracker" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <Grid Margin="{StaticResource XSmallTopMargin}" RowSpacing="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Name="SettingsDwellDurationContainer">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Dwell Duration" TextAlignment="Center" Grid.Column="0" />
+                    <controls:NumberBox Minimum="1"  Value="{x:Bind  services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Mode=TwoWay}"
+                                        ToolTipService.ToolTip="How long in seconds to activate a button or card."
+                                        ToolTipService.PlacementTarget="{x:Bind SettingsDwellDurationContainer}"
+                                        SmallChange="1" Grid.Column="1" />
+                </Grid>
+                <Grid Name="Settings_CursorRadius">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Cursor Radius" TextAlignment="Center" Grid.Column="0" />
+                    <controls:NumberBox Minimum="5" Value="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius, Mode=TwoWay}"
+                        ToolTipService.ToolTip="The size of the eye tracker cursor."
+                        ToolTipService.PlacementTarget="{x:Bind Settings_CursorRadius}"
+                         Grid.Column="1" />
+                </Grid>
+            </Grid>
+            <TextBlock Margin="0,40,0,20" Text="Text to Speech" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <Grid Margin="{StaticResource XSmallTopMargin}" RowSpacing="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Name="Settings_TextToSpeechVolume">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Speech volume" TextAlignment="Center" Grid.Column="0" />
+                    <Slider Value="{x:Bind services:LetsTalkSettingsService.TextToSpeechSettings.Volume, Mode=TwoWay}"
+                            ToolTipService.ToolTip="How loud the text to speech will be."
+                            ToolTipService.PlacementTarget="{x:Bind Settings_TextToSpeechVolume}"
+                            SmallChange="1" Grid.Column="1" />
+                    
+                </Grid>
+                <Grid Name="Settings_TextToSpeechRate">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Rate" TextAlignment="Center" Grid.Column="0" />
+                    <controls:NumberBox Value="{x:Bind services:LetsTalkSettingsService.TextToSpeechSettings.Rate, Mode=TwoWay}"
+              ToolTipService.ToolTip="How quickly the text to speech will read the text."
+              ToolTipService.PlacementTarget="{x:Bind Settings_TextToSpeechRate}"
+               Grid.Column="1" />
+                </Grid>
+            </Grid>
+
+            <TextBlock Margin="0,200,0,0" x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <StackPanel Margin="{StaticResource XSmallTopMargin}">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
@@ -48,6 +118,8 @@
 
                 <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
             </StackPanel>
+
+
         </StackPanel>
     </Grid>
 </Page>

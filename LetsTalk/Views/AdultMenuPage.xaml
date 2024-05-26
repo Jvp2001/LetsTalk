@@ -1,14 +1,47 @@
 ﻿<Page x:Class="LetsTalk.Views.AdultMenuPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Style="{StaticResource PageStyle}"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:controls="using:LetsTalk.Views.Controls"
+      xmlns:views="using:LetsTalk.Views"
+      xmlns:services="using:LetsTalk.Services"
+      xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+      gaze:GazeInput.Interaction="Disabled"
+      gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+      gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+      Style="{StaticResource PageStyle}"
       mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid>
             <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
                 Place your content here.
             -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <controls:MenuButton gaze:GazeInput.Interaction="Disabled"
+                                 Grid.Column="1" Grid.Row="1" Text="Create a Board" GoTo="CreateABoard" />
+
+            <controls:MenuButton gaze:GazeInput.Interaction="Disabled"
+                                 Grid.Column="1" Grid.Row="3" Text="Symbol Workshop" GoTo="SymbolWorkshop" />
+
+            <Button Grid.Column="1" Grid.Row="5" Content="Sample Boards" Style="{StaticResource MenuButton}"
+                    gaze:GazeInput.Interaction="Disabled"
+                    Click="{x:Bind ViewModel.OnSampleBoardsClicked}" />
 
         </Grid>
     </Grid>

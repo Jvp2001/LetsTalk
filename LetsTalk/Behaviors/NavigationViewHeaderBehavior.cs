@@ -3,14 +3,15 @@ using Microsoft.Xaml.Interactivity;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using LetsTalk.Views;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace LetsTalk.Behaviors
 {
     public class NavigationViewHeaderBehavior : Behavior<WinUI.NavigationView>
     {
-        private static NavigationViewHeaderBehavior _current;
-        private Page _currentPage;
+        private static NavigationViewHeaderBehavior current;
+        private Page currentPage;
 
         public DataTemplate DefaultHeaderTemplate { get; set; }
 
@@ -20,8 +21,8 @@ namespace LetsTalk.Behaviors
             set => SetValue(DefaultHeaderProperty, value);
         }
 
-        public static readonly DependencyProperty DefaultHeaderProperty = DependencyProperty.Register("DefaultHeader", typeof(object), typeof(NavigationViewHeaderBehavior),
-            new PropertyMetadata(null, (d, e) => _current.UpdateHeader()));
+        public static readonly DependencyProperty DefaultHeaderProperty = DependencyProperty.Register(nameof(DefaultHeader), typeof(object), typeof(NavigationViewHeaderBehavior),
+            new PropertyMetadata(null, (d, e) => current.UpdateHeader()));
 
         public static NavigationViewHeaderMode GetHeaderMode(Page item)
         {
@@ -33,9 +34,22 @@ namespace LetsTalk.Behaviors
             item.SetValue(HeaderModeProperty, value);
         }
 
+      
+
+
+
         public static readonly DependencyProperty HeaderModeProperty =
-            DependencyProperty.RegisterAttached("HeaderMode", typeof(bool), typeof(NavigationViewHeaderBehavior),
-                new PropertyMetadata(NavigationViewHeaderMode.Always, (d, e) => _current.UpdateHeader()));
+            DependencyProperty.RegisterAttached(nameof(HeaderMode), typeof(bool), typeof(NavigationViewHeaderBehavior),
+                new PropertyMetadata(NavigationViewHeaderMode.Never, (d, e) => current.UpdateHeader()));
+
+
+        public bool HeaderMode
+        {
+            get => (bool)GetValue(HeaderModeProperty);
+            set => SetValue(HeaderModeProperty, value);
+        }
+
+
 
         public static object GetHeaderContext(Page item)
         {
@@ -48,7 +62,7 @@ namespace LetsTalk.Behaviors
         }
 
         public static readonly DependencyProperty HeaderContextProperty =
-            DependencyProperty.RegisterAttached("HeaderContext", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current.UpdateHeader()));
+            DependencyProperty.RegisterAttached("HeaderContext", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => current.UpdateHeader()));
 
         public static DataTemplate GetHeaderTemplate(Page item)
         {
@@ -62,12 +76,12 @@ namespace LetsTalk.Behaviors
 
         public static readonly DependencyProperty HeaderTemplateProperty =
             DependencyProperty.RegisterAttached("HeaderTemplate", typeof(DataTemplate), typeof(NavigationViewHeaderBehavior),
-                new PropertyMetadata(null, (d, e) => _current.UpdateHeaderTemplate()));
+                new PropertyMetadata(null, (d, e) => current.UpdateHeaderTemplate()));
 
         protected override void OnAttached()
         {
             base.OnAttached();
-            _current = this;
+            current = this;
             NavigationService.Navigated += OnNavigated;
         }
 
@@ -82,8 +96,11 @@ namespace LetsTalk.Behaviors
             var frame = sender as Frame;
             if (frame.Content is Page page)
             {
-                _currentPage = page;
+                currentPage = page;
+                if (frame is WelcomePage)
+                {
 
+                }
                 UpdateHeader();
                 UpdateHeaderTemplate();
             }
@@ -91,9 +108,9 @@ namespace LetsTalk.Behaviors
 
         private void UpdateHeader()
         {
-            if (_currentPage != null)
+            if (currentPage != null)
             {
-                var headerMode = GetHeaderMode(_currentPage);
+                var headerMode = GetHeaderMode(currentPage);
                 if (headerMode == NavigationViewHeaderMode.Never)
                 {
                     AssociatedObject.Header = null;
@@ -101,7 +118,7 @@ namespace LetsTalk.Behaviors
                 }
                 else
                 {
-                    var headerFromPage = GetHeaderContext(_currentPage);
+                    var headerFromPage = GetHeaderContext(currentPage);
                     if (headerFromPage != null)
                     {
                         AssociatedObject.Header = headerFromPage;
@@ -125,9 +142,9 @@ namespace LetsTalk.Behaviors
 
         private void UpdateHeaderTemplate()
         {
-            if (_currentPage != null)
+            if (currentPage != null)
             {
-                var headerTemplate = GetHeaderTemplate(_currentPage);
+                var headerTemplate = GetHeaderTemplate(currentPage);
                 AssociatedObject.HeaderTemplate = headerTemplate ?? DefaultHeaderTemplate;
             }
         }

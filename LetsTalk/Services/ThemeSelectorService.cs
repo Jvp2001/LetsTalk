@@ -12,11 +12,11 @@ namespace LetsTalk.Services
     {
         private const string SettingsKey = "AppBackgroundRequestedTheme";
 
-        public static ElementTheme Theme { get; set; } = ElementTheme.Default;
+        public static ElementTheme Theme { get; set; } = ElementTheme.Dark;
 
         public static async Task InitializeAsync()
         {
-            Theme = await LoadThemeFromSettingsAsync();
+            // Theme = await LoadThemeFromSettingsAsync();
         }
 
         public static async Task SetThemeAsync(ElementTheme theme)

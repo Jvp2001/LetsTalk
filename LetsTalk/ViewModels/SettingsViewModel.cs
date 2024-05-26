@@ -7,39 +7,41 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
+using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
+using Microsoft.UI.Xaml.Controls;
 
 namespace LetsTalk.ViewModels
 {
     // TODO: Add other settings as necessary. For help see https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/pages/settings.md
-    public class SettingsViewModel : ObservableObject
+    public sealed class SettingsViewModel : ObservableObject
     {
-        private ElementTheme _elementTheme = ThemeSelectorService.Theme;
+        private ElementTheme elementTheme = ThemeSelectorService.Theme;
 
         public ElementTheme ElementTheme
         {
-            get => _elementTheme;
+            get => elementTheme;
 
-            set => SetProperty(ref _elementTheme, value);
+            set => SetProperty(ref elementTheme, value);
         }
 
-        private string _versionDescription;
+        private string versionDescription;
 
         public string VersionDescription
         {
-            get => _versionDescription;
+            get => versionDescription;
 
-            set => SetProperty(ref _versionDescription, value);
+            set => SetProperty(ref versionDescription, value);
         }
 
-        private ICommand _switchThemeCommand;
+        private ICommand switchThemeCommand;
 
         public ICommand SwitchThemeCommand
         {
             get
             {
-                if (_switchThemeCommand == null)
+                if (switchThemeCommand == null)
                 {
-                    _switchThemeCommand = new RelayCommand<ElementTheme>(
+                    switchThemeCommand = new RelayCommand<ElementTheme>(
                         async (param) =>
                         {
                             ElementTheme = param;
@@ -47,7 +49,7 @@ namespace LetsTalk.ViewModels
                         });
                 }
 
-                return _switchThemeCommand;
+                return switchThemeCommand;
             }
         }
 
@@ -69,6 +71,17 @@ namespace LetsTalk.ViewModels
             var version = packageId.Version;
 
             return $"{appName} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+        }
+
+        public async Task OnDwellDurationChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            LetsTalkSettingsService.EyeTrackerSettings.DwellDuration = (int)sender.Value;
+            await LetsTalkSettingsService.SaveSettingsAsync();
+            
+        }
+
+        public void OnCursorRadiusChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
         }
     }
 }

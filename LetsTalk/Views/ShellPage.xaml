@@ -4,7 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviors="using:LetsTalk.Behaviors"
       xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:helpers="using:LetsTalk.Helpers"
       xmlns:views="using:LetsTalk.Views" xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:i="using:Microsoft.Xaml.Interactivity" mc:Ignorable="d">
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+      
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:services="using:LetsTalk.Services" mc:Ignorable="d">
+
+
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
@@ -12,10 +18,13 @@
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
 
-    <winui:NavigationView x:Name="navigationView" IsBackButtonVisible="Visible"
+    <winui:NavigationView x:Name="navigationView" IsBackButtonVisible="Collapsed"
                           IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
                           SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}" IsSettingsVisible="True"
-                          Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                          Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+                          IsPaneVisible="{x:Bind ViewModel.IsPaneVisible, Mode=OneWay}"
+                         PaneDisplayMode="{x:Bind ViewModel.PaneDisplayMode, Mode=OneWay}">
+        <ScrollViewer.VerticalScrollBarVisibility>Hidden</ScrollViewer.VerticalScrollBarVisibility>
         <winui:NavigationView.MenuItems>
             <!--
             TODO: Change the symbols for each item as appropriate for your app
@@ -23,21 +32,18 @@
             Or to use an IconElement instead of a Symbol see https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-            <winui:NavigationViewItem x:Uid="Shell_MainMenu" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:MainMenuPage" />
-            <winui:NavigationViewItem x:Uid="Shell_AdultMenu" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:AdultMenuPage" />
-            <winui:NavigationViewItem x:Uid="Shell_ChildMenu" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:ChildMenuPage" />
-            <winui:NavigationViewItem x:Uid="Shell_CreateABoard" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:CreateABoardPage" />
-            <winui:NavigationViewItem x:Uid="Shell_SymbolWorkshop" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:SymbolWorkshopPage" />
-            <winui:NavigationViewItem x:Uid="Shell_SampleBoards" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:SampleBoardsPage" />
-            <winui:NavigationViewItem x:Uid="Shell_CardBoard" Icon="Document"
-                                      helpers:NavHelper.NavigateTo="views:CardBoardPage" />
-        </winui:NavigationView.MenuItems>
+           </winui:NavigationView.MenuItems>
+
+        <winui:NavigationView.FooterMenuItems>
+            <winui:NavigationViewItem Content="Back" Icon="Back" PointerPressed="{x:Bind services:NavigationService.GoBack}" IsEnabled="{x:Bind services:NavigationService.Frame.CanGoBack, Mode=OneWay}"
+                                       gaze:GazeInput.Interaction="Enabled"
+gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+                                       Height="50"/>
+            <winui:NavigationViewItem x:Uid="Shell_Close" Content="Exit" Icon="Cancel" PointerPressed="UIElement_OnPointerPressed"/>
+            <winui:NavigationViewItem x:Uid="Shell_Help" Content="Help" Icon="Help" helpers:NavHelper.NavigateTo="views:HelpPage"/>
+        </winui:NavigationView.FooterMenuItems>
+
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
@@ -54,7 +60,10 @@
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
         <Grid>
-            <Frame x:Name="shellFrame" />
+
+
+            <Frame x:Name="shellFrame" KeyUp="ShellFrame_OnKeyUp" />
         </Grid>
     </winui:NavigationView>
+    
 </Page>

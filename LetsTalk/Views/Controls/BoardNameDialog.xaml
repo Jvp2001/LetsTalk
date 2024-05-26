@@ -1,0 +1,20 @@
+﻿<ContentDialog
+    x:Class="LetsTalk.BoardNameDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LetsTalk"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:LetsTalk.Helpers"
+    mc:Ignorable="d"
+    Title="Edit Board Name"
+    PrimaryButtonText="Apply"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <TextBox x:Name="BoardNameTextBox" TextChanging="BoardNameTextBlock_TextChanging" KeyUp="BoardNameTextBox_OnKeyUp"
+                 helpers:FocusManager.FocusedElement="{Binding ElementName=BoardNameTextBox}" Text="{x:Bind BoardName}"/>
+    </Grid>
+</ContentDialog>

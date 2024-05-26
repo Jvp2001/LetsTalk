@@ -3,7 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300" d:DesignWidth="400"
+             xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+             xmlns:services="using:LetsTalk.Services">
 
-    <Button Content="{x:Bind Text}" Style="{StaticResource MenuButton}" Click="MenuButton_OnClicked" />
+    <Button Content="{x:Bind Text}" Style="{StaticResource MenuButton}" Click="MenuButton_OnClicked"
+            gaze:GazeInput.Interaction="{x:Bind InteractionStatus}"
+            gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+            gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"/>
 </UserControl>

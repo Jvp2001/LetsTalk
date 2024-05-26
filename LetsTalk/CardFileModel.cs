@@ -15,6 +15,7 @@ namespace LetsTalk.Models
         public StorageFile ImageFile { get; set; }
 
 
+
         public CardFileModel(string title, string image, ImageProperties imageProperties, StorageFile imageFile)
         {
             Title = title;
@@ -22,6 +23,7 @@ namespace LetsTalk.Models
             ImageProperties = imageProperties;
             ImageFile = imageFile;
         }
+
 
 
 

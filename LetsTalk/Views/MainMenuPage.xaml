@@ -2,11 +2,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:controls="using:LetsTalk.Views.Controls" Style="{StaticResource PageStyle}" mc:Ignorable="d">
+      xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
+      gaze:GazeInput.Interaction="Enabled"
+      gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+      gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+      xmlns:controls="using:LetsTalk.Views.Controls"
+      xmlns:services="using:LetsTalk.Services"
+
+      Style="{StaticResource PageStyle}" mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid>
             <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
                 Place your content here.
             -->
             <Grid.ColumnDefinitions>
@@ -24,8 +31,12 @@
 
             </Grid.RowDefinitions>
 
-            <controls:MenuButton Grid.Column="1" Grid.Row="1" Text="Child" GoTo="AdultMenu" />
-            <controls:MenuButton Grid.Column="1" Grid.Row="3" Text="Adult" GoTo="AdultMenu" />
+            <Button Grid.Column="1" Grid.Row="1" Content="Child"
+                    gaze:GazeInput.Interaction="Enabled"
+                    gaze:GazeInput.DwellDuration="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.DwellDuration, Converter={StaticResource TimeSpanConvertor}}"
+                    gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTrackerSettings.CursorRadius}"
+                    Style="{StaticResource MenuButton}"  Click="{x:Bind ViewModel.ChildButton_Clicked}" />
+                <controls:MenuButton Grid.Column="1" Grid.Row="3" Text="Adult" GoTo="AdultMenu" />
 
 
         </Grid>

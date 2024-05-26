@@ -1,0 +1,21 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:services="using:LetsTalk.Services">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="MenuButtonBackgroundColour" Color="White" />
+            <SolidColorBrush x:Key="MenuButtonForegroundColour" Color="Purple" />
+            <SolidColorBrush x:Key="TextBlockTextColour" Color="White" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="MenuButtonBackgroundColour" Color="DarkGray" />
+            <SolidColorBrush x:Key="MenuButtonForegroundColour" Color="Purple" />
+            <SolidColorBrush x:Key="TextBlockTextColour" Color="Black" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+
+
+</ResourceDictionary>

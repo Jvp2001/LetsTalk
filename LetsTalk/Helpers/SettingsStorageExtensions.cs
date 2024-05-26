@@ -51,9 +51,7 @@ namespace LetsTalk.Helpers
 
         public static async Task<T> ReadAsync<T>(this ApplicationDataContainer settings, string key)
         {
-            object obj = null;
-
-            if (settings.Values.TryGetValue(key, out obj))
+            if (settings.Values.TryGetValue(key, out var obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);
             }
@@ -64,7 +62,7 @@ namespace LetsTalk.Helpers
         public static async Task<StorageFile> SaveFileAsync(this StorageFolder folder, byte[] content, string fileName,
             CreationCollisionOption options = CreationCollisionOption.ReplaceExisting)
         {
-            if (content == null)
+            if (content is null)
             {
                 throw new ArgumentNullException(nameof(content));
             }
@@ -83,7 +81,7 @@ namespace LetsTalk.Helpers
         {
             var item = await folder.TryGetItemAsync(fileName).AsTask().ConfigureAwait(false);
 
-            if (item != null && item.IsOfType(StorageItemTypes.File))
+            if (!(item is null) && item.IsOfType(StorageItemTypes.File))
             {
                 var storageFile = await folder.GetFileAsync(fileName);
                 var content = await storageFile.ReadBytesAsync();
@@ -95,7 +93,7 @@ namespace LetsTalk.Helpers
 
         public static async Task<byte[]> ReadBytesAsync(this StorageFile file)
         {
-            if (file != null)
+            if (!(file is null))
             {
                 using (IRandomAccessStream stream = await file.OpenReadAsync())
                 {
