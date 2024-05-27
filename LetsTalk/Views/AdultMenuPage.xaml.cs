@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using LetsTalk.ViewModels;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using LetsTalk.Models;
 

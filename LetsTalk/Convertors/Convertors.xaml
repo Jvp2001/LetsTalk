@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:convertors="using:LetsTalk.Convertors">
 
+    <!-- Allows for a way to simply reference convertors in XAML. -->
     <convertors:TimeSpanConvertor x:Key="TimeSpanConvertor"/>
     <convertors:IntToStringConvertor x:Key="IntToStringConvertor"/>
     <convertors:UserTypeToGazeInteractionConvertor x:Key="UserTypeToGazeInteractionConvertor"/>
+    <convertors:UserTypeToVisibilityConvertor x:Key="UserTypeToVisibilityConvertor"/>
 </ResourceDictionary>

@@ -1,12 +1,5 @@
-﻿using LetsTalk.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Speech.Synthesis;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
-using Windows.Media.Core;
-using Windows.Media.Playback;
 using Windows.Media.SpeechSynthesis;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;

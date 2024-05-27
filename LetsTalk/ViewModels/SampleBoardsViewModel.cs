@@ -22,7 +22,7 @@ namespace LetsTalk.ViewModels
     {
         private string titleText;
 
-        private CustomCardBoardDatabase Database { get; set; } = App.Current.CardBoardDatabase;
+        private CardBoardDatabase Database { get; set; } = App.Current.CardBoardDatabase;
 
         public ObservableCollection<CardBoardModel> Boards { get; set; } = new ObservableCollection<CardBoardModel>();
 

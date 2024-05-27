@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using LetsTalk.Models;
 using LetsTalk.Services;
-using LetsTalk.Views.Extensions;
+using LetsTalk.Views.Mixins;
 
 namespace LetsTalk.Views
 {

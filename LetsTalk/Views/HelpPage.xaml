@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
-    xmlns:behaviors="using:LetsTalk.Behaviors"
     xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
     gaze:GazeInput.Interaction="Disabled"
     mc:Ignorable="d">
@@ -14,7 +13,7 @@
             x:Name="mpe"
             AreTransportControlsEnabled="True"
             AutoPlay="True"
-            PosterSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
+            PosterSource="ms-appx:///Assets/Images/TrainingVideoPoster.png"
             Source="{x:Bind ViewModel.Source, Mode=OneWay}" >
             <MediaPlayerElement.TransportControls>
                 <MediaTransportControls IsCompact="False" />

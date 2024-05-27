@@ -53,7 +53,7 @@ namespace LetsTalk
         public static new App Current => Application.Current as App;
 
 
-        public CustomCardBoardDatabase CardBoardDatabase => Singleton<CustomCardBoardDatabase>.Instance;
+        public CardBoardDatabase CardBoardDatabase => Singleton<CardBoardDatabase>.Instance;
         public MyBoardsDatabase MyBoardsDatabase => Singleton<MyBoardsDatabase>.Instance;
         public TextToSpeechService TextToSpeechService => Singleton<TextToSpeechService>.Instance;
 

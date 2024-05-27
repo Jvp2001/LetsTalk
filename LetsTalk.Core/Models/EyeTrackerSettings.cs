@@ -6,6 +6,15 @@ using System.Text.Json.Serialization;
 
 namespace LetsTalk.Core.Models;
 
+
+/// <summary>
+/// This class is used to store the settings for the eye tracker.
+/// </summary>
+/// <remarks>
+/// <see cref="INotifyPropertyChanged"/> is used to notify the UI when a property has changed.
+/// I bound to the PropertyChangedEvent to allow the settings to be saved when the UI changes the settings.
+/// This stops me from having multiple callbacks for each property in a view model which save the settings after each value is changed.
+/// </remarks>
 [Serializable]
 public sealed class EyeTrackerSettings : INotifyPropertyChanged
 {

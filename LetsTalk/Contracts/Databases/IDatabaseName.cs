@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LetsTalk.Contracts.Databases
+﻿namespace LetsTalk.Contracts.Databases
 {
     public interface IDatabaseName
     {

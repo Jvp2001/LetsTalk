@@ -18,6 +18,13 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>LetsTalk_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -166,23 +173,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
-    <Compile Include="Behaviors\FocusManagerBehviour.cs" />
-    <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
-    <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Behaviours\FocusManagerBehviour.cs" />
+    <Compile Include="Behaviours\NavigationViewHeaderBehavior.cs" />
+    <Compile Include="Behaviours\NavigationViewHeaderMode.cs" />
     <Compile Include="Contracts\Databases\IDatabaseName.cs" />
     <Compile Include="Contracts\ViewModels\IBackButtonClickedHandler.cs" />
     <Compile Include="Contracts\ViewModels\INavigationAware.cs" />
     <Compile Include="Convertors\IntToStringConvertor.cs" />
     <Compile Include="Convertors\UserTypeToGazeInteractionConvertor.cs" />
+    <Compile Include="Convertors\UserTypeToVisibilityConvertor.cs" />
     <Compile Include="Database\BaseDatabase.cs" />
     <Compile Include="Database\CardModelDatabase.cs" />
-    <Compile Include="Database\CustomCardBoardDatabase.cs" />
+    <Compile Include="Database\CardBoardDatabase.cs" />
     <Compile Include="Database\DatabaseBase.cs" />
     <Compile Include="Database\MyBoardsDatabase.cs" />
     <Compile Include="Helpers\CardLoader.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\FocusManager.cs" />
-    <Compile Include="Helpers\MediaPlayerExtensions.cs" />
     <Compile Include="Helpers\MessageDialogs.cs" />
     <Compile Include="Helpers\ObservableCollectionExtensions.cs" />
     <Compile Include="Helpers\StorageFolderExtensions.cs" />
@@ -237,14 +244,13 @@
     <Compile Include="Views\CreateABoardPage.xaml.cs">
       <DependentUpon>CreateABoardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Extensions\IPDFExportablePage.cs" />
+    <Compile Include="Views\Mixins\IPDFExportablePage.cs" />
     <Compile Include="Views\FirstRunDialog.xaml.cs">
       <DependentUpon>FirstRunDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Extensions\IPrintablePage.cs" />
     <Compile Include="Views\MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
@@ -661,10 +667,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\Cards\Colour\Yes No\quiet.png" />
+    <Content Include="Assets\Images\TrainingVideoPoster.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Videos\TrainingVideo.mp4" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

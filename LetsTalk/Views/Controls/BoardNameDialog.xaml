@@ -1,5 +1,5 @@
 ﻿<ContentDialog
-    x:Class="LetsTalk.BoardNameDialog"
+    x:Class="LetsTalk.Views.Controls.BoardNameDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LetsTalk"
@@ -12,7 +12,7 @@
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
-
+    
     <Grid>
         <TextBox x:Name="BoardNameTextBox" TextChanging="BoardNameTextBlock_TextChanging" KeyUp="BoardNameTextBox_OnKeyUp"
                  helpers:FocusManager.FocusedElement="{Binding ElementName=BoardNameTextBox}" Text="{x:Bind BoardName}"/>

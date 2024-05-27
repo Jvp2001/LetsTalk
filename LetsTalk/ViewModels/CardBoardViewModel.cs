@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LetsTalk.Helpers;
 using LetsTalk.Models;
@@ -19,10 +18,11 @@ namespace LetsTalk.ViewModels
     public abstract class CardBoardViewModel : ObservableObject
     {
         private bool isItemClickedEnabled = true;
-        public ObservableCollection<CardFileModel> Cards { get; set; } = new ObservableCollection<CardFileModel>();
+
+        public ObservableCollection<CardFileModel> Cards { get; } = new ObservableCollection<CardFileModel>();
 
 
-        public bool IsItemClickedEnabled    
+        public bool IsItemClickedEnabled
         {
             get => isItemClickedEnabled;
             set => SetProperty(ref isItemClickedEnabled, value);
@@ -30,46 +30,41 @@ namespace LetsTalk.ViewModels
 
         public bool HaveAnyCards => Cards.Count > 0;
 
-        protected virtual QueryOptions QueryOptions
+
+
+
+        protected CardBoardViewModel()
         {
-            get
+
+        }
+
+        protected async Task<IReadOnlyList<StorageFile>> LoadCardsAsync()
+        {
+            QueryOptions queryOptions = new QueryOptions(CommonFileQuery.DefaultQuery, new[] { ".jpg", ".png" })
             {
-                var options = new QueryOptions(CommonFileQuery.DefaultQuery, new[] { ".jpg", ".png" })
-                {
-                    FolderDepth = FolderDepth.Deep
-                };
-                return options;
-            }
+                FolderDepth = FolderDepth.Deep
+            };
+
+            var appInstalledFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var assetsFolder = await appInstalledFolder.GetFolderAsync("Assets\\Images\\Cards\\Colour");
+
+            return await assetsFolder.CreateFileQueryWithOptions(queryOptions).GetFilesAsync();
         }
 
 
-
-
-
-
-        public CardBoardViewModel()
-        {
-
-        }
-
-        protected virtual async Task<IReadOnlyList<StorageFile>> LoadCardsAsync()
-        {
-            var options = QueryOptions;
-
-            StorageFolder appInstalledFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            StorageFolder assetsFolder = await appInstalledFolder.GetFolderAsync("Assets\\Images\\Cards\\Colour");
-
-            return await assetsFolder.CreateFileQueryWithOptions(options).GetFilesAsync();
-        }
-
-
+        /// <summary>
+        /// This is the default behaviour of how cards are loaded.
+        /// </summary>
+        /// <remarks>
+        /// This is used by the <see cref="SymbolWorkshopViewModel"/> to load the cards from the Assets folder.
+        /// </remarks>
         public virtual async Task GetCardsAsync()
         {
 
             var result = await LoadCardsAsync();
             var loadedCards = new ObservableCollection<CardFileModel>();
-            
-            for (var index = 0; index < result.Count; index++)
+
+            for (var index = 0; index < result.Count; ++index)
             {
                 var file = result[index];
                 var card = new CardFileModel
@@ -83,10 +78,6 @@ namespace LetsTalk.ViewModels
 
             OnCardsLoaded();
 
-        }
-        public async Task<StorageFile> LoadImageFileAsync(string path)
-        {
-            return await StorageFile.GetFileFromPathAsync(path);
         }
 
         public async Task<CardFileModel> LoadImageFromStorageFileAsync(StorageFile file)

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace LetsTalk.Core.Helpers;
 
+/// <summary>
+/// This class is used to convert a json array or object to a list of objects.
+/// </summary>
+/// <typeparam name="T"> The type of the objects in the list. </typeparam>
 public class ArrayOrObjectJsonConvertor<T> : JsonConverter<IReadOnlyList<T>>
 {
 

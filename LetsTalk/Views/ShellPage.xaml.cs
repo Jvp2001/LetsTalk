@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using Windows.Devices.Input;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using LetsTalk.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using LetsTalk.Helpers;
-using LetsTalk.Services;
 
 namespace LetsTalk.Views
 {

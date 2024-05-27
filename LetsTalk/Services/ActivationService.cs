@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using LetsTalk.Activation;
 using LetsTalk.Core.Helpers;
-using LetsTalk.Services;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

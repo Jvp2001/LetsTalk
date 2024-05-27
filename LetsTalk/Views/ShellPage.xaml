@@ -1,14 +1,16 @@
 ﻿<Page x:Class="LetsTalk.Views.ShellPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:behaviors="using:LetsTalk.Behaviors"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:helpers="using:LetsTalk.Helpers"
       xmlns:views="using:LetsTalk.Views" xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       xmlns:gaze="using:Microsoft.Toolkit.Uwp.Input.GazeInteraction"
       
       xmlns:i="using:Microsoft.Xaml.Interactivity"
-      xmlns:services="using:LetsTalk.Services" mc:Ignorable="d">
+      xmlns:services="using:LetsTalk.Services"
+      xmlns:behaviours="using:LetsTalk.Behaviours"
+      mc:Ignorable="d">
 
 
 
@@ -45,16 +47,16 @@ gaze:GazeInput.CursorRadius="{x:Bind services:LetsTalkSettingsService.EyeTracker
         </winui:NavigationView.FooterMenuItems>
 
         <i:Interaction.Behaviors>
-            <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
-                <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+            <behaviours:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
+                <behaviours:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
                         <Grid>
                             <TextBlock Text="{Binding}" Style="{ThemeResource TitleTextBlockStyle}"
                                        Margin="{StaticResource SmallLeftRightMargin}" />
                         </Grid>
                     </DataTemplate>
-                </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-            </behaviors:NavigationViewHeaderBehavior>
+                </behaviours:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+            </behaviours:NavigationViewHeaderBehavior>
             <ic:EventTriggerBehavior EventName="ItemInvoked">
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
             </ic:EventTriggerBehavior>

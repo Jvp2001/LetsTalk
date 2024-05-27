@@ -1,15 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI.Xaml;
 using LetsTalk.Core.Contracts.Services;
 using LetsTalk.Core.Helpers;
 using Microsoft.Toolkit.Uwp.Helpers;
 
-
-namespace LetsTalk.Core.Services
+namespace LetsTalk.Services
 {
     public class FileService : IFileService
     {

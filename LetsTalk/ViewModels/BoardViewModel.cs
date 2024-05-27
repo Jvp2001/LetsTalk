@@ -193,6 +193,8 @@ using LetsTalk.Database;
 using LetsTalk.Helpers;
 using LetsTalk.Models;
 using LetsTalk.Services;
+using LetsTalk.Views.Controls;
+
 namespace LetsTalk.ViewModels
 {
     public sealed class BoardViewModel : CardBoardViewModel, INavigationAware, INavigatingHandler, IBoardModificationViewModel

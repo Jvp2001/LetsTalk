@@ -4,6 +4,8 @@ using LetsTalk.Models;
 using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
 namespace LetsTalk.Convertors
 {
+
+
     public class UserTypeToGazeInteractionConvertor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

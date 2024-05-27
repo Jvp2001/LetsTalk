@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LetsTalk.Core.Helpers;
 using LetsTalk.Services;
 using Windows.ApplicationModel.Activation;
 

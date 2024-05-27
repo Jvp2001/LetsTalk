@@ -7,9 +7,7 @@ using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using LetsTalk.Contracts.Databases;
-using LetsTalk.Core.Contracts;
 using LetsTalk.Core.Helpers;
-using LetsTalk.Core.Models;
 using LetsTalk.Helpers;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 

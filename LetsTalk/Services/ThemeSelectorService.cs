@@ -16,7 +16,7 @@ namespace LetsTalk.Services
 
         public static async Task InitializeAsync()
         {
-            // Theme = await LoadThemeFromSettingsAsync();
+            Theme = await LoadThemeFromSettingsAsync();
         }
 
         public static async Task SetThemeAsync(ElementTheme theme)

@@ -4,7 +4,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:views="using:LetsTalk.Views"
       xmlns:models="using:LetsTalk.Models" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-      xmlns:behaviors="using:LetsTalk.Behaviors"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:letsTalk="using:LetsTalk"
@@ -52,14 +51,8 @@
         <MediaElement Name="MediaElement" AutoPlay="False" MediaOpened="{x:Bind ViewModel.MediaElement_OnMediaOpened}"
                       MediaEnded="{x:Bind  ViewModel.MediaElement_OnMediaEnded}" />
 
-        <muxc:MenuBar Name="MenuBar" Grid.Row="1">
-            <interactivity:Interaction.Behaviors>
-                <core:DataTriggerBehavior Binding="{x:Bind letsTalk:App.Current.User}" ComparisonCondition="Equal"
-                                          Value="Child">
-                    <core:ChangePropertyAction TargetObject="{Binding ElementName=MenuBar}" PropertyName="Visibility"
-                                               Value="Hidden" />
-                </core:DataTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
+        <muxc:MenuBar Name="MenuBar" Grid.Row="1" Visibility="{x:Bind letsTalk:App.Current.User, Converter={StaticResource UserTypeToVisibilityConvertor}}">
+            
             <!-- File menu with two sub items Save, Save As with shortcuts Ctrl s and Ctrl shift s-->
             <muxc:MenuBarItem Title="File">
                 <MenuFlyoutItem Text="Save" Click="{x:Bind ViewModel.Save}">

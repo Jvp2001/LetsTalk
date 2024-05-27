@@ -15,6 +15,7 @@ using LetsTalk.Contracts.ViewModels;
 using LetsTalk.Helpers;
 using LetsTalk.Services;
 using LetsTalk.Views;
+using LetsTalk.Views.Controls;
 
 namespace LetsTalk.ViewModels
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml;
-using LetsTalk.ViewModels;
-using Windows.UI.Xaml.Controls;
-using LetsTalk.Services;
-using Microsoft.Toolkit.Uwp.Input.GazeInteraction;
+﻿using LetsTalk.ViewModels;
 
 namespace LetsTalk.Views
 {

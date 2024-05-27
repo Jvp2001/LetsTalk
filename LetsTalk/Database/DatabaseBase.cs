@@ -3,28 +3,38 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
 using LetsTalk.Contracts.Databases;
 using LetsTalk.Helpers;
-using LetsTalk.Services;
 
 namespace LetsTalk.Database
 {
+
+    /// <summary>
+    /// The base class for all databases.
+    /// </summary>
+    /// <remarks>
+    /// I am using JSON as my database format.
+    /// Terms:
+    /// A database, in my application, is either a single JSON file or a folder of JSON files.
+    /// </remarks>
     public abstract class DatabaseBase<TModel> where TModel : class, IDatabaseName
     {
         public const string DatabaseFolderName = "Databases";
 
+        /// <summary>
+        /// This allows each database operation to be change its behaviour depending on if the database is a folder or a file.
+        /// </summary>
         public virtual bool IsEachModelItsOwnTable => false;
 
 
         public abstract string DatabasePath { get; }
 
+        #region Database Management
 
         public virtual async Task DropTableAsync(TModel model)
         {
@@ -147,8 +157,7 @@ namespace LetsTalk.Database
 
             return $@"{DatabasePath}\{model.DatabaseName}";
         }
-  
 
-        protected abstract Task OnDataFetched(IEnumerable<TModel> data);
+#endregion
     }
 }

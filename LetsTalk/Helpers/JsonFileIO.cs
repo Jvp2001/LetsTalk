@@ -5,7 +5,6 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using LetsTalk.Core.Helpers;
 using LetsTalk.Models;
-using FileAttributes = System.IO.FileAttributes;
 
 namespace LetsTalk.Helpers
 {
