@@ -19,7 +19,7 @@
 
 -----
 
-<p> To install the application, download the <a href="https://github.com/Jvp2001/LetsTalk/releases/tag/binaries">LetsTalk.zip</a>and extract it.
+<p> To install the application, download the <a href="https://github.com/Jvp2001/LetsTalk/releases/tag/binaries">LetsTalk.zip</a> and extract it.
 If the <b>installer</b> does not work, please go into the LetsTalk folder and run the <b>LetsTalk.exe</b>.</p>
 
 
