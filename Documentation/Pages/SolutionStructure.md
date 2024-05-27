@@ -1,3 +1,6 @@
+<a href="../../README.md"> Back</a>
+
+
 <h1> Solution Structure</h1>
 
 The solution is structured in a way that is easy to navigate. The project is a UWP application, so it has the following projects:
@@ -22,3 +25,6 @@ The solution is structured in a way that is easy to navigate. The project is a U
     </li>
     <li> <b>LetsTalk.Core</b> A .NetStandard project Contains the models, services and code that can be used between projects.</li>
 </ul>
+
+<a href="../../README.md"> Back</a>
+
