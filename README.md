@@ -8,7 +8,7 @@
 <ul>
 <li> <a href="#solution-structure"> Solution Structure</a></li>
 <li><a href="#description">Description and answers for some of my programming choices.</a></li>
-<li><a href="./Documentation/TypeDiagrams/TypeDiagrams.md">Type Diagrams</a></li>
+<li><a href="Documentation/TypeDiagrams/TypeDiagrams.md">Type Diagrams</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="/Documentation/Pages/Credits.md">Credits</a></li>
 </ul>
