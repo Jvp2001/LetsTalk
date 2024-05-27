@@ -77,10 +77,11 @@ namespace LetsTalk
             InitializeComponent();
             UnhandledException += OnAppUnhandledException;
 
-            // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
 
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
-                "Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhMYVB3WmFZfVpgfF9EYVZQQ2YuP1ZhSXxXdkBhXX9WcnVUQWBbV0Q=");
+
+            // I would normally not include a license key in the code, but I am doing so here for the sake this submission; the key only lasts for 30 days.
+            Syncfusion.Licensing.SyncfusionLicenseProvider
+                .RegisterLicense("MzI5MjE1N0AzMjM1MmUzMDJlMzBLa0owbmc0MW00eUhIQnA5VVN0N0U1aTQzSzJGeWZsWTVqMnIrTnN4S09JPQ ==");
 
             activationService = new Lazy<ActivationService>(() => CreateActivationService());
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
