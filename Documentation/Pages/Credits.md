@@ -13,9 +13,11 @@
             <li><a href="https://marketplace.visualstudio.com/items?itemName=TemplateStudio.TemplateStudioForUWP">Template Studio Visual Studio Plugin for UWP</a> This helps accelerate UWP application development</li>
             <ul class="no-points"> <h4>Images of how it Accelerated Development</h4>
             <li> 
-                <img src="https://github.com/Jvp2001/LetsTalk/blob/cb6c2dd6aed385b525046d1af217e6b8691230f5/Documentation/Images/TemplateStudio/TemplateStudioNewFeatureWizard.png" width="500" height="500">Feature Wizard</li><br>
+                <img src="https://github.com/Jvp2001/LetsTalk/blob/cb6c2dd6aed385b525046d1af217e6b8691230f5/Documentation/Images/TemplateStudio/TemplateStudioNewFeatureWizard.png">
+                Feature Wizard</li><br>
             <li> 
-                <img src="https://github.com/Jvp2001/LetsTalk/blob/cb6c2dd6aed385b525046d1af217e6b8691230f5/Documentation/Images/TemplateStudio/TemplateStudioPageWizard.png" alt="Page Wizard">Page Wizard</li>
+                <img src="https://github.com/Jvp2001/LetsTalk/blob/cb6c2dd6aed385b525046d1af217e6b8691230f5/Documentation/Images/TemplateStudio/TemplateStudioPageWizard.png" alt="Page Wizard">
+                Page Wizard</li>
             </ul><br>
             <li>UWP and WinUI 3 Samples</li>
                 <ul>
